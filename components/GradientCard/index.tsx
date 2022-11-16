@@ -57,6 +57,7 @@ const TwitchCard: React.FC<any> = ({title, subtitle}) => {
                                     transition: {delay: 0.15}
                                 }
                             }}
+                            key={word}
                             className='word'
                         >{` ${word}`}</motion.span>
                     )
