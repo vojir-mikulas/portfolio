@@ -1,0 +1,56 @@
+
+.card {
+    aspect-ratio: 10/16;
+    border: 0.5vmin solid rgb(3, 169, 244);
+    position: relative;
+    cursor: pointer;
+    width: 56vmin;
+    border-radius: 12px;
+    font-weight: bold;
+}
+.card:hover > .card-content, .card:focus > .card-content {
+    outline: none;
+    background: radial-gradient(rgba(255, 255, 255, 0.5), transparent 8%) fixed center;
+    background-size: 5vmin 5vmin;
+    color: white;
+}
+
+.card-gradient {
+    border-radius: 12px;
+    background: linear-gradient(130deg, transparent 0% 32%, #f7797d 66%, #c471ed 83.5%, #12c2e9 100%) 0 0;
+    background-size: 300% 300%;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    transition: background-position ease-out 0.2s, transform 0.2s ease-out;
+}
+
+.card-content {
+    width: 100%;
+    height: 100%;
+    padding: 5vmin;
+    background: radial-gradient(rgba(0, 0, 0, 0.5), transparent 8%) fixed center;
+    background-size: 5vmin 5vmin;
+    position: relative;
+    z-index: 2;
+    transition: all 0.2s ease-out;
+    text-align: left;
+}
+
+.card-title {
+    font-size: 6vmin;
+}
+
+.card-subtitle {
+    font-size: 3vmin;
+    margin-top: 2vmin;
+}
+.card-subtitle .word {
+    display: inline-block;
+    margin-right: 1vmin;
+    position: relative;
+}
+

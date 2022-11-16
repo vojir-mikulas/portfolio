@@ -1,0 +1,328 @@
+import React, {useEffect, useState} from 'react';
+import {AnimatePresence, motion, useScroll} from "framer-motion";
+const Hero = () => {
+    const [animate, setAnimate] = useState(false)
+    const [navVisible, setNavVisible] = useState(false)
+    const [staggerAnimation, setStaggerAnimation] = useState<boolean>(false)
+    const [isChatVisible, setIsChatVisible] = useState<boolean>(false)
+
+    const {scrollY} = useScroll();
+    useEffect(() => {
+        return scrollY.onChange((latest) => {
+            if (latest >= 300 && !staggerAnimation) {
+                setAnimate(true)
+            } else {
+                setAnimate(false)
+                if (setNavVisible) setNavVisible(false)
+            }
+        })
+    }, [])
+
+    const textVariants = {
+        initial: {
+            scaleX: 0,
+            opacity: 0,
+            transition: {}
+        },
+        idle: {
+            scaleX: 1,
+            opacity: 1,
+            transition: {
+                delay: 0.5
+            }
+        },
+        close: {
+            scaleX: 0,
+            opacity: 0,
+            transition: {
+                ease: 'linear',
+                duration: 0.1
+            }
+        },
+    }
+    const logoVariants = {
+        initial: {
+            left: '50%',
+            marginLeft: '-2rem',
+            opacity: 0,
+            transition: {
+                duration: 4
+            }
+        },
+
+        idle: {
+            opacity: 1,
+            left: 0,
+            marginLeft: 0,
+            transition: {
+                opacity: {
+                    delay: 0.1,
+                    duration: 0.1
+                },
+                left: {
+                    delay: 0.5
+                },
+                marginLeft: {
+                    delay: 0.01,
+                    duration: 0.1
+                },
+                ease: 'linear',
+            }
+        },
+        close: {
+            opacity: 1,
+            left: '50%',
+            marginLeft: '-2rem',
+        },
+    }
+    return (
+        <>
+            <AnimatePresence>
+                {(isChatVisible && navVisible) && <Chat/>}
+            </AnimatePresence>
+            <AnimatePresence>
+                {navVisible && <Index setStaggerAnimation={setStaggerAnimation}/>}
+            </AnimatePresence>
+            <div className='w-screen h-screen flex items-center justify-center   '>
+                <motion.div
+                    initial={'initial'}
+                    animate={animate ? 'close' : 'idle'}
+                    onAnimationComplete={(definition) => {
+                        if (definition === 'close') setNavVisible(true)
+                        if (definition === 'idle') setStaggerAnimation(false)
+                    }}
+                    onAnimationStart={(definition) => {
+                        setStaggerAnimation(true)
+                    }}
+
+                    className={'text-9xl font-bold sticky  w-max h-max top-40   select-none'}>
+
+                    {!navVisible && <AnimatePresence>
+                        <motion.h1
+                            key='logo'
+                            layout
+                            layoutId='logo'
+
+                            variants={logoVariants}
+                            className={'block absolute w-max h-max'}>V
+                        </motion.h1>
+
+                        <motion.h1
+                            key='text'
+                            variants={textVariants}
+                            className={`block relative ml-20`}>OJÍŘ
+                        </motion.h1>
+                    </AnimatePresence>}
+                </motion.div>
+
+            </div>
+
+        </>
+    );
+};
+
+
+const Index = ({setStaggerAnimation}: any) => {
+    const [openNav,setOpenNav] = useState<boolean>(false)
+
+    const navVariants = {
+        initial:{
+            opacity: 0,
+            scaleY: 0,
+        },
+        animate:{
+            opacity: 1,
+            scaleY: 1,
+        },
+        exit:{
+            opacity: 0,
+            scaleY: 0,
+            transition:{
+                duration:0.1
+            }
+        },
+    }
+    const liVariants = {
+        initial:{
+            y: 40,
+            opacity: 0,
+        },
+        animate:{
+            y: 0,
+            opacity: 1,
+        },
+        exit:{
+            y:20,
+            opacity: 0,
+            transition:{
+                duration:0.2
+            }
+        }
+    }
+    const animatedNav = () => {
+        interface navItem {
+            name: string;
+            href?: string;
+        }
+
+        const navItems: Array<navItem> = [
+            {name: "Home"},
+            {name: "About me"},
+            {name: "Contact"}
+        ];
+
+        return navItems.map((item, index) => {
+            return (
+                <motion.li
+                    key={item.name}
+                    variants={liVariants}
+                    transition={{
+                        delay: index * 0.2
+                    }}
+                    className='inline-block interactable'>
+                    <a href={'/'}>{item.name}</a>
+                </motion.li>
+
+            )
+        })
+    }
+    return (
+        <>
+            <motion.header
+                initial={'initial'}
+                animate={'animate'}
+                exit={'exit'}
+                className={'fixed w-full flex items-center z-50 hover:bg-white mobile:hover:bg-transparent transition-all h-14 top-0 mobile:flex-col '}>
+                <div className='flex justify-between items-center md:container mx-auto w-full mobile:bg-white px-4 w-full mobile:py-3'>
+                    <motion.div
+                        onLayoutAnimationComplete={() => {
+                            setStaggerAnimation(false)
+                        }}
+                        layoutId='logo'
+                        className={'font-bold text-4xl text-center interactable  select-none mobile:text-6xl'}> <h1>V</h1>
+                    </motion.div>
+                    <nav className={'mobile:hidden'}>
+                        <ul className='flex gap-3 items-center font-bold'>
+                            {animatedNav()}
+                        </ul>
+                    </nav>
+                    <motion.div
+                        initial={'initial'}
+                        exit={'initial'}
+                        animate={openNav ? "open" : "closed"}
+                        className={'hidden mobile:block text-3xl text-center mobile:h-10 mobile:w-10'}
+                        onClick={()=>setOpenNav(!openNav)}> <MenuToggle/> </motion.div>
+                </div>
+                <AnimatePresence>
+                    {openNav &&
+                        <motion.nav
+                            variants={navVariants}
+                            initial={'initial'}
+                            animate={'animate'}
+                            exit={'exit'}
+                            className={'hidden mobile:block flex flex-col w-full px-3 py-5 bg-gray-100 origin-top'}>
+                            <ul className='flex flex-col gap-3 items-start font-bold'>
+                                {animatedNav()}
+                            </ul>
+                        </motion.nav>}
+                </AnimatePresence>
+            </motion.header>
+        </>
+    );
+};
+
+const Path : React.FC<any> = (props) => (
+    <motion.path
+        fill="transparent"
+        strokeWidth="3"
+        stroke="hsl(0, 0%, 18%)"
+        strokeLinecap="round"
+        {...props}
+    />
+);
+
+export const MenuToggle : React.FC<any> = () => (
+    <>
+        <motion.svg
+            variants={{
+                initial:{
+                    opacity:0
+                },
+                open:{
+                    opacity:1
+                },
+                closed:{
+                    opacity:1
+                }
+            }}
+            className='w-full h-full' viewBox="0 0 23 23">
+            <Path
+                variants={{
+                    closed: { d: "M 2 2.5 L 20 2.5" },
+                    open: { d: "M 3 16.5 L 17 2.5" }
+                }}
+            />
+            <Path
+                d="M 2 9.423 L 20 9.423"
+                variants={{
+                    closed: { opacity: 1 },
+                    open: { opacity: 0 }
+                }}
+                transition={{ duration: 0.1 }}
+            />
+            <Path
+                variants={{
+                    closed: { d: "M 2 16.346 L 20 16.346" },
+                    open: { d: "M 3 2.5 L 17 16.346" }
+                }}
+            />
+        </motion.svg>
+    </>
+);
+
+
+
+
+
+const Chat = () => {
+    return (
+        <motion.div
+            exit={{opacity: 0}}
+            className='fixed right-10 top-20  gap-4 flex flex-col font-bold text-center text-sm w-[20vw] font-medium '>
+            <motion.div
+                initial={{opacity: 0, scale: 0}}
+                animate={{opacity: 1, scale: 1}}
+                transition={{
+                    delay: 1
+                }}
+                className='self-start bg-gray-200 p-3 origin-bottom-left rounded-full'>What is my purpose?
+            </motion.div>
+            <motion.div
+                initial={{opacity: 0, scale: 0}}
+                animate={{opacity: 1, scale: 1}}
+                transition={{
+                    delay: 2
+                }}
+                className='self-end text-white bg-blue-500 p-3 origin-bottom-right rounded-full'>You are a NavBar.
+            </motion.div>
+            <motion.div
+                initial={{opacity: 0, scale: 0}}
+                animate={{opacity: 1, scale: 1}}
+                transition={{
+                    delay: 4
+                }}
+                className='self-start bg-gray-200 p-3 origin-bottom-left rounded-full'>Oh my god..
+            </motion.div>
+            <motion.div
+                initial={{opacity: 0, scale: 0}}
+                animate={{opacity: 1, scale: 1}}
+                transition={{
+                    delay: 5
+                }}
+                className='self-end text-white bg-blue-500 p-3 origin-bottom-right rounded-full'>Welcome to the club,
+                Pal.
+            </motion.div>
+        </motion.div>)
+}
+
+export default Hero;

@@ -1,6 +1,6 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import ProjectList from "../components/ProjectList";
+import CardsContainer from "../components/CardsContainer";
 
 export default function Home() {
   return (
@@ -8,7 +8,8 @@ export default function Home() {
       <Head>
         <title>Vojíř</title>
       </Head>
-
+        <CardsContainer/>
+       <ProjectList/>
 
     </div>
   )
