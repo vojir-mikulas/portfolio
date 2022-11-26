@@ -28,3 +28,8 @@ h2, h3 {
 .interactable {
     cursor: pointer;
 }
+
+.text-stroke{
+    -webkit-text-stroke-color: black;
+    -webkit-text-stroke-width: 1px;
+}

@@ -1,6 +1,8 @@
 import {AnimatePresence, motion, useMotionValue, useVelocity} from 'framer-motion';
 import React, {useContext, useEffect, useMemo, useRef, useState} from 'react';
 import preview from '../../public/yellowflash.png';
+import {useRouter} from "next/router";
+import RevText from "../RevText";
 
 const MouseContext = React.createContext<any>(null);
 
@@ -59,8 +61,13 @@ const ProjectsLibrary = () => {
                 <div
                     ref={projectContainerNode}
                     className='flex flex-col justify-center md:container mx-auto '>
-                    <ProjectItem title={'YELLOWFLASH'}
-                                 info={{year: '2022', type: 'E-shop', description: 'Projekt k životopisu'}}/>
+                    <RevText>MY WORK</RevText>
+                    <ProjectItem
+                        id={'yellowflash'}
+                        title={'YELLOWFLASH'}
+                        info={{year: '2022', type: 'E-shop', description: 'Projekt k životopisu'}}/>
+
+
                 </div>
             </MouseContext.Provider>
         </div>
@@ -68,6 +75,7 @@ const ProjectsLibrary = () => {
 };
 
 interface ProjectItem {
+    id:string;
     title: string;
     info: {
         year: string,
@@ -76,7 +84,7 @@ interface ProjectItem {
     }
 }
 
-const ProjectItem: React.FC<ProjectItem> = ({title, info}) => {
+const ProjectItem: React.FC<ProjectItem> = ({id,title, info}) => {
     const [isMouseHovering, setIsMouseHovering] = useState<boolean>(false)
     const imgNode: React.MutableRefObject<HTMLImageElement | null> = useRef(null);
 
@@ -84,6 +92,7 @@ const ProjectItem: React.FC<ProjectItem> = ({title, info}) => {
     const [mouseY, setMouseY] = useState<number>(0);
     const [imgPos, setImgPos] = useState<{ x: number, y: number }>({x: 0, y: 0})
 
+    const router = useRouter();
     const imageContainerVariants = {
         initial: {
             x: imgPos.x,
@@ -162,9 +171,8 @@ const ProjectItem: React.FC<ProjectItem> = ({title, info}) => {
         const rect: any = e.currentTarget.getBoundingClientRect();
         let y: number = e.clientY - rect.top;  //y position within the element.
         setMouseY(y);
-
     }
-
+    const handleOnClick = (e:any)=> router.push(`project/${id}`)
     useEffect(() => {
         const fontSize: number = parseInt(getComputedStyle((document.documentElement)).fontSize.replace('px', ''));
 
@@ -173,31 +181,41 @@ const ProjectItem: React.FC<ProjectItem> = ({title, info}) => {
         const imgHeight: number = img ? img.offsetHeight : 0;
         let x: number = clampPosition(containerWidth * 0.45, containerWidth * 0.9, xProgress) - (imgWidth / 2);
         let y: number = mouseY - (imgHeight / 2);
+        if(mouseY >= (imgHeight / 4) || mouseY <= -40) setIsMouseHovering(false)
         setImgPos({
             x,
             y
         })
     }, [xProgress, imgNode, mouseX, mouseY,isMouseHovering])
+
     return (
         <AnimatePresence>
             <motion.div
-                onMouseEnter={(e) => setIsMouseHovering(true)}
-                onMouseLeave={(e) => setIsMouseHovering(false)}
+                onMouseEnter={(e) => {
+                    e.stopPropagation();
+                    setIsMouseHovering(true);
+                }}
+                onMouseLeave={(e) => {
+                    e.stopPropagation();
+                    setIsMouseHovering(false);
+                }}
                 onMouseMove={handleMouseMove}
-                className={'relative flex items-center project py-4 interactable  '}>
-                <button onFocus={() => setIsMouseHovering(true)}
-                        onBlur={() => setIsMouseHovering(false)}>
-                    <h1 className={`text-7xl z-10 font-medium ${isMouseHovering ? 'text-black mobile:text-white' : 'text-gray-500'} transition-all mobile:text-5xl mobile:mix-blend-difference`}>{title}</h1></button>
-
-                <motion.div
-                    initial={'initial'}
-                    animate={isMouseHovering ? 'hover' : 'initial'}
-                    exit={'exit'}
-                    className={'flex flex-col text-sm ml-7 z-10'}>
-                    <motion.span custom={3} variants={descriptionVariants} className={'ml-9'}>{info.description} </motion.span>
-                    <motion.span custom={2} variants={descriptionVariants} className={'ml-6'}>{info.type} </motion.span>
-                    <motion.span custom={1} variants={descriptionVariants} className={'ml-3'}>{info.year} </motion.span>
-                </motion.div>
+                onClick={handleOnClick}
+                className={'relative  w-full flex items-center project py-4 interactable'}>
+                <div className={'w-full flex items-center z-50'}>
+                    <button onFocus={() => setIsMouseHovering(true)}
+                            onBlur={() => setIsMouseHovering(false)}>
+                        <h1 className={`text-7xl font-medium ${isMouseHovering ? 'text-black mobile:text-white' : 'text-gray-500'} transition-all mobile:text-5xl mobile:mix-blend-difference`}>{title}</h1></button>
+                    <motion.div
+                        initial={'initial'}
+                        animate={isMouseHovering ? 'hover' : 'initial'}
+                        exit={'exit'}
+                        className={'flex flex-col text-sm ml-7 z-10'}>
+                        <motion.span custom={3} variants={descriptionVariants} className={'ml-9'}>{info.description} </motion.span>
+                        <motion.span custom={2} variants={descriptionVariants} className={'ml-6'}>{info.type} </motion.span>
+                        <motion.span custom={1} variants={descriptionVariants} className={'ml-3'}>{info.year} </motion.span>
+                    </motion.div>
+                </div>
                 <AnimatePresence>
                     {isMouseHovering &&
                         <motion.div

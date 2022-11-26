@@ -4,11 +4,13 @@ import type { AppProps } from 'next/app'
 import Header from "../components/Header";
 import Grain from "../components/Grain";
 import Cursor from "../components/Cursor";
+import Footer from "../components/Footer";
 
 export default function App({ Component, pageProps }: AppProps) {
   return <div className={''}>
-    <Cursor/>
+
     <Header/>
     <Component {...pageProps} />
+    <Footer/>
   </div>
 }

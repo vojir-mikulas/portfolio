@@ -7,7 +7,7 @@ const AnimatedText: React.FC<{ text: string }> = ({text}) => {
         <motion.div>
             {words.map((word, index) => (
                 <Word
-                    key={word}
+                    key={word + index}
                     text={word}
                     custom={index}
                 />

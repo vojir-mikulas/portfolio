@@ -1,12 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {AnimatePresence, motion,} from "framer-motion";
 
+
 const Cursor = () => {
     const cursorSize = 30;
     const {x, y} = useMousePosition();
     const mouseClicked = useMouseClick();
     const mouseHovering = useMouseHover('.interactable');
+    const cursorHidden = useMouseHover('.cursorHidden');
     const [cursorVariant, setCursorVariant] = useState<string>('default');
+
     const cursorVariants = {
         default: {
             scale: 1,
@@ -77,6 +80,23 @@ const Cursor = () => {
                 mass: 0.2,
                 stiffness: 100
             }
+        },
+        hidden:{
+            scale: 0,
+            opacity: 0,
+            mixBlendMode: 'difference',
+            width: cursorSize,
+            height: cursorSize,
+            x: x - (cursorSize / 2),
+            y: y - (cursorSize / 2),
+            transition: {
+                scale: {
+                    duration: 0.15
+                },
+                type: "spring",
+                mass: 0.2,
+                stiffness: 100
+            }
         }
     }
     const circleVariants = {
@@ -85,26 +105,31 @@ const Cursor = () => {
         },
         click: {
             border: '1px solid white'
+        },
+        hidden: {
+            border: '1px solid white'
         }
     }
 
     useEffect(() => {
-        if (!mouseHovering && mouseClicked) setCursorVariant('click')
+        if (!mouseHovering && mouseClicked && !cursorHidden) setCursorVariant('click')
         else if (mouseHovering && !mouseClicked) setCursorVariant('hover')
         else if (mouseHovering && mouseClicked) setCursorVariant('hoverClick')
+        else if (mouseHovering && mouseClicked) setCursorVariant('hoverClick')
+        else if (cursorHidden) setCursorVariant('hidden')
         else setCursorVariant('default')
-    }, [mouseClicked, mouseHovering])
+    }, [mouseClicked, mouseHovering,cursorHidden])
 
     return (
         <AnimatePresence>
             { /* @ts-ignore */}
-            <motion.div variants={cursorVariants}
-                        animate={cursorVariant}
-                        className={'fixed z-[9230] top-0 left-0 rounded-full pointer-events-none cursor'}
+             <motion.div variants={cursorVariants}
+                         animate={cursorVariant}
+                         className={`fixed z-[9230] top-0 left-0 pointer-events-none cursor rounded-full tablet:hidden`}
             >
                 { /* @ts-ignore */}
                 <motion.div variants={circleVariants}
-                            className={'z-[9230] w-full h-full rounded-full absolute backdrop-invert grayscale'}/>
+                            className={`z-[9230] w-full h-full absolute  backdrop-invert grayscale rounded-full tablet:hidden`}/>
             </motion.div>
 
         </AnimatePresence>
@@ -153,7 +178,8 @@ const useMouseHover = (id: string) => {
 
     useEffect(() => {
         const handleMouseHover = (e: any) => {
-            const interactable = e.target.closest(id);
+            let interactable = null;
+            if(e.target.closest) interactable = e.target.closest(id);
             setMouseHovering(interactable !== null);
 
         };

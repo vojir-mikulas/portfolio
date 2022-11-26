@@ -37,7 +37,9 @@ const TwitchCard: React.FC<any> = ({title, subtitle}) => {
         }
     }
     return (
-        <motion.button className={'card interactable'} initial='rest' animate='rest' whileHover='hover' whileFocus={'hover'}   exit='rest'>
+        <motion.button className={'card interactable'}
+
+                       initial='rest' animate='rest' whileHover='hover' whileFocus={'hover'}   exit='rest'>
             <motion.div
                 variants={contentBgMotion}
                 className={'card-content'}>

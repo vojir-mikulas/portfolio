@@ -1,13 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import {AnimatePresence, motion, useScroll} from "framer-motion";
-const Hero = () => {
+import {useRouter} from "next/router";
+import Link from "next/link";
+
+const HeaderHero = () => {
     const [animate, setAnimate] = useState(false)
     const [navVisible, setNavVisible] = useState(false)
     const [staggerAnimation, setStaggerAnimation] = useState<boolean>(false)
     const [isChatVisible, setIsChatVisible] = useState<boolean>(false)
+    const router = useRouter()
 
     const {scrollY} = useScroll();
     useEffect(() => {
+        if(scrollY.get() >= 300 && !staggerAnimation) setNavVisible(true)
         return scrollY.onChange((latest) => {
             if (latest >= 300 && !staggerAnimation) {
                 setAnimate(true)
@@ -18,6 +23,30 @@ const Hero = () => {
         })
     }, [])
 
+
+    return (
+        <>
+            <AnimatePresence>
+                {(isChatVisible && navVisible) && <Chat/>}
+            </AnimatePresence>
+            <AnimatePresence>
+                {(navVisible || router.asPath !== '/') && <Header setStaggerAnimation={setStaggerAnimation}/>}
+            </AnimatePresence>
+            <Hero animate={animate} setNavVisible={setNavVisible} navVisible={navVisible} setStaggerAnimation={setStaggerAnimation}/>
+        </>
+    );
+};
+
+
+interface HeroProps {
+    animate : boolean;
+    navVisible : boolean;
+
+    setNavVisible : any;
+    setStaggerAnimation : any;
+}
+const Hero : React.FC<HeroProps> = ({animate,navVisible,setNavVisible,setStaggerAnimation}) => {
+    const router = useRouter()
     const textVariants = {
         initial: {
             scaleX: 0,
@@ -77,13 +106,7 @@ const Hero = () => {
     }
     return (
         <>
-            <AnimatePresence>
-                {(isChatVisible && navVisible) && <Chat/>}
-            </AnimatePresence>
-            <AnimatePresence>
-                {navVisible && <Index setStaggerAnimation={setStaggerAnimation}/>}
-            </AnimatePresence>
-            <div className='w-screen h-screen flex items-center justify-center   '>
+            {router.asPath === '/' && <div className='w-screen h-screen flex items-center justify-center'>
                 <motion.div
                     initial={'initial'}
                     animate={animate ? 'close' : 'idle'}
@@ -95,7 +118,7 @@ const Hero = () => {
                         setStaggerAnimation(true)
                     }}
 
-                    className={'text-9xl font-bold sticky  w-max h-max top-40   select-none'}>
+                    className={'text-9xl font-bold fixed  w-max h-max -translate-y-1/2   z-50 select-none'}>
 
                     {!navVisible && <AnimatePresence>
                         <motion.h1
@@ -114,48 +137,48 @@ const Hero = () => {
                         </motion.h1>
                     </AnimatePresence>}
                 </motion.div>
-
-            </div>
-
+                <ScrollIcon/>
+            </div>}
         </>
     );
 };
 
 
-const Index = ({setStaggerAnimation}: any) => {
-    const [openNav,setOpenNav] = useState<boolean>(false)
 
+const Header = ({setStaggerAnimation}: any) => {
+    const [openNav, setOpenNav] = useState<boolean>(false)
+    const router = useRouter();
     const navVariants = {
-        initial:{
+        initial: {
             opacity: 0,
             scaleY: 0,
         },
-        animate:{
+        animate: {
             opacity: 1,
             scaleY: 1,
         },
-        exit:{
+        exit: {
             opacity: 0,
             scaleY: 0,
-            transition:{
-                duration:0.1
+            transition: {
+                duration: 0.1
             }
         },
     }
     const liVariants = {
-        initial:{
+        initial: {
             y: 40,
             opacity: 0,
         },
-        animate:{
+        animate: {
             y: 0,
             opacity: 1,
         },
-        exit:{
-            y:20,
+        exit: {
+            y: 20,
             opacity: 0,
-            transition:{
-                duration:0.2
+            transition: {
+                duration: 0.2
             }
         }
     }
@@ -166,9 +189,18 @@ const Index = ({setStaggerAnimation}: any) => {
         }
 
         const navItems: Array<navItem> = [
-            {name: "Home"},
-            {name: "About me"},
-            {name: "Contact"}
+            {
+                name: "Home",
+                href: '/'
+            },
+            {
+                name: "About me",
+                href: 'about'
+            },
+            {
+                name: "Contact",
+                href: 'contact'
+            }
         ];
 
         return navItems.map((item, index) => {
@@ -180,7 +212,7 @@ const Index = ({setStaggerAnimation}: any) => {
                         delay: index * 0.2
                     }}
                     className='inline-block interactable'>
-                    <a href={'/'}>{item.name}</a>
+                    <Link href={`${item.href}`}>{item.name}</Link>
                 </motion.li>
 
             )
@@ -193,13 +225,15 @@ const Index = ({setStaggerAnimation}: any) => {
                 animate={'animate'}
                 exit={'exit'}
                 className={'fixed w-full flex items-center z-50 hover:bg-white mobile:hover:bg-transparent transition-all h-14 top-0 mobile:flex-col '}>
-                <div className='flex justify-between items-center md:container mx-auto w-full mobile:bg-white px-4 w-full mobile:py-3'>
+                <div
+                    className='flex justify-between items-center md:container mx-auto w-full mobile:bg-white px-4 w-full mobile:py-3'>
                     <motion.div
                         onLayoutAnimationComplete={() => {
                             setStaggerAnimation(false)
                         }}
-                        layoutId='logo'
-                        className={'font-bold text-4xl text-center interactable  select-none mobile:text-6xl'}> <h1>V</h1>
+                        layoutId={router.asPath === '/' ? 'logo' : ''}
+                        className={'font-bold text-4xl text-center interactable  select-none mobile:text-6xl'}>
+                        <h1><Link href={'/'}>V</Link></h1>
                     </motion.div>
                     <nav className={'mobile:hidden'}>
                         <ul className='flex gap-3 items-center font-bold'>
@@ -211,7 +245,7 @@ const Index = ({setStaggerAnimation}: any) => {
                         exit={'initial'}
                         animate={openNav ? "open" : "closed"}
                         className={'hidden mobile:block text-3xl text-center mobile:h-10 mobile:w-10'}
-                        onClick={()=>setOpenNav(!openNav)}> <MenuToggle/> </motion.div>
+                        onClick={() => setOpenNav(!openNav)}><MenuToggle/></motion.div>
                 </div>
                 <AnimatePresence>
                     {openNav &&
@@ -231,7 +265,7 @@ const Index = ({setStaggerAnimation}: any) => {
     );
 };
 
-const Path : React.FC<any> = (props) => (
+const Path: React.FC<any> = (props) => (
     <motion.path
         fill="transparent"
         strokeWidth="3"
@@ -241,47 +275,44 @@ const Path : React.FC<any> = (props) => (
     />
 );
 
-export const MenuToggle : React.FC<any> = () => (
+export const MenuToggle: React.FC<any> = () => (
     <>
         <motion.svg
             variants={{
-                initial:{
-                    opacity:0
+                initial: {
+                    opacity: 0
                 },
-                open:{
-                    opacity:1
+                open: {
+                    opacity: 1
                 },
-                closed:{
-                    opacity:1
+                closed: {
+                    opacity: 1
                 }
             }}
             className='w-full h-full' viewBox="0 0 23 23">
             <Path
                 variants={{
-                    closed: { d: "M 2 2.5 L 20 2.5" },
-                    open: { d: "M 3 16.5 L 17 2.5" }
+                    closed: {d: "M 2 2.5 L 20 2.5"},
+                    open: {d: "M 3 16.5 L 17 2.5"}
                 }}
             />
             <Path
                 d="M 2 9.423 L 20 9.423"
                 variants={{
-                    closed: { opacity: 1 },
-                    open: { opacity: 0 }
+                    closed: {opacity: 1},
+                    open: {opacity: 0}
                 }}
-                transition={{ duration: 0.1 }}
+                transition={{duration: 0.1}}
             />
             <Path
                 variants={{
-                    closed: { d: "M 2 16.346 L 20 16.346" },
-                    open: { d: "M 3 2.5 L 17 16.346" }
+                    closed: {d: "M 2 16.346 L 20 16.346"},
+                    open: {d: "M 3 2.5 L 17 16.346"}
                 }}
             />
         </motion.svg>
     </>
 );
-
-
-
 
 
 const Chat = () => {
@@ -325,4 +356,52 @@ const Chat = () => {
         </motion.div>)
 }
 
-export default Hero;
+const ScrollIcon = () => {
+    const [animate, setAnimate] = useState<boolean>(true)
+    const {scrollY} = useScroll();
+    useEffect(() => {
+        return scrollY.onChange((latest) => {
+            if (latest >= 50) {
+                setAnimate(false)
+            } else {
+                setAnimate(true)
+            }
+        })
+    }, [])
+    const iconVariants = {
+        initial:{
+            y:-40,
+          opacity:0
+        },
+        animate: {
+            y: [0, 30, 0],
+            opacity: 1,
+            transition: {
+                    y:{
+                        repeat: Infinity,
+                        duration: 1.5,
+                    },
+                    type: 'spring',
+                    duration: 1.5,
+
+            }
+        }
+    }
+
+    return (
+          <AnimatePresence>
+              {animate &&
+                  <motion.div
+                  initial={'initial'}
+                  animate={'animate'}
+                  exit={'initial'}
+                  variants={iconVariants}
+                  className={'self-end my-16'}>
+                  Scroll
+              </motion.div>}
+          </AnimatePresence>
+    );
+};
+
+
+export default HeaderHero;
