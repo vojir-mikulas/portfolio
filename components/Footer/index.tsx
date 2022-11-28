@@ -4,8 +4,8 @@ import {AnimatePresence} from "framer-motion";
 
  const Footer = () => {
     return (
-        <footer className={' w-full h-[35vh] mb-[500px]  z-10 bg-white '}>
-            <div className={'md:container mx-auto  py-10 h-full w-full border-t border-black grid grid-cols-4 items-start  '}>
+        <footer className={' w-full min-h-[35vh] mb-[500px]  z-10 bg-white '}>
+            <div className={'md:container mx-auto  py-10 h-full w-full border-t border-black grid gap-5 grid-cols-4 items-start mobile:place-items-center mobile:text-center mobile:grid-cols-1 '}>
                 <div className={'flex flex-col'}>
                     <h4 className={'font-bold text-xl mb-3'}>Contacts</h4>
                     <ul className={'flex flex-col gap-1'}>
