@@ -6,17 +6,17 @@ interface props {
 
 }
 
-const Index: React.FC<props> = ({children}) => {
+const Text: React.FC<props> = ({children}) => {
     const [characters, setCharacters] = useState<any>(children.split(''))
 
     const charVariants = {
         initial: {
             color: "rgba(0,0,0,0)",
-            webkitTextStrokeWidth: '0px',
+            WebkitTextStrokeWidth: '0px',
         },
         reveal: (custom: number) => ({
             color: ["rgba(0,0,0,0)","rgb(0,0,0)","rgba(0,0,0,0)"],
-            webkitTextStrokeWidth: ['0px','0px','1px'],
+            WebkitTextStrokeWidth: ['0px','0px','1px'],
             transition: {
                 delay: 0.1 * custom,
                 duration: 1,
@@ -35,7 +35,7 @@ const Index: React.FC<props> = ({children}) => {
                         whileInView={'reveal'}
                         exit={'initial'}
                         custom={index}
-                        className={'text-8xl font-bold inline-block  text-stroke'}
+                        className={'text-8xl font-bold inline-block  text-stroke my-10'}
                         variants={charVariants}
                         key={char}>{char} </motion.div>
                 ))}
@@ -44,4 +44,4 @@ const Index: React.FC<props> = ({children}) => {
     );
 };
 
-export default Index;
+export default Text;

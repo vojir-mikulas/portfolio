@@ -106,39 +106,41 @@ const Hero : React.FC<HeroProps> = ({animate,navVisible,setNavVisible,setStagger
     }
     return (
         <>
-            {router.asPath === '/' && <div className='w-screen h-screen flex items-center justify-center'>
-                <motion.div
-                    initial={'initial'}
-                    animate={animate ? 'close' : 'idle'}
-                    onAnimationComplete={(definition) => {
-                        if (definition === 'close') setNavVisible(true)
-                        if (definition === 'idle') setStaggerAnimation(false)
-                    }}
-                    onAnimationStart={(definition) => {
-                        setStaggerAnimation(true)
-                    }}
+            {router.asPath === '/' && <section className={'w-screen h-screen bg-white flex flex-col '}>
+                <motion.div layout className={'flex flex-col items-center justify-center  relative h-full'}>
+                    <motion.div
+                        initial={'initial'}
+                        animate={animate ? 'close' : 'idle'}
+                        onAnimationComplete={(definition) => {
+                            if (definition === 'close') setNavVisible(true)
+                            if (definition === 'idle') setStaggerAnimation(false)
+                        }}
+                        onAnimationStart={() => {
+                            setStaggerAnimation(true)
+                        }}
 
-                    className={'text-9xl font-bold fixed  w-max h-max -translate-y-1/2   z-50 select-none'}>
+                        className={'text-9xl font-bold relative w-max h-max  z-50 select-none'}>
+                        {!navVisible && <AnimatePresence>
+                            <motion.h1
+                                key='logo'
+                                layout
+                                layoutId='logo'
 
-                    {!navVisible && <AnimatePresence>
-                        <motion.h1
-                            key='logo'
-                            layout
-                            layoutId='logo'
+                                variants={logoVariants}
+                                className={'block absolute w-max h-max'}>V
+                            </motion.h1>
 
-                            variants={logoVariants}
-                            className={'block absolute w-max h-max'}>V
-                        </motion.h1>
-
-                        <motion.h1
-                            key='text'
-                            variants={textVariants}
-                            className={`block relative ml-20`}>OJÍŘ
-                        </motion.h1>
-                    </AnimatePresence>}
+                            <motion.h1
+                                key='text'
+                                variants={textVariants}
+                                className={`block relative ml-20`}>OJÍŘ
+                            </motion.h1>
+                        </AnimatePresence>}
+                    </motion.div>
+                    <ScrollIcon></ScrollIcon>
                 </motion.div>
-                <ScrollIcon/>
-            </div>}
+
+            </section>}
         </>
     );
 };
@@ -371,7 +373,7 @@ const ScrollIcon = () => {
     const iconVariants = {
         initial:{
             y:-40,
-          opacity:0
+            opacity:0
         },
         animate: {
             y: [0, 30, 0],
@@ -383,7 +385,6 @@ const ScrollIcon = () => {
                     },
                     type: 'spring',
                     duration: 1.5,
-
             }
         }
     }
@@ -396,7 +397,7 @@ const ScrollIcon = () => {
                   animate={'animate'}
                   exit={'initial'}
                   variants={iconVariants}
-                  className={'self-end my-16'}>
+                  className={'absolute bottom-16'}>
                   Scroll
               </motion.div>}
           </AnimatePresence>

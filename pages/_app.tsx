@@ -4,13 +4,17 @@ import type { AppProps } from 'next/app'
 import Header from "../components/Header";
 import Grain from "../components/Grain";
 import Cursor from "../components/Cursor";
-import Footer from "../components/Footer";
+import Footer, {UnderFooter} from "../components/Footer";
+import {AnimatePresence} from "framer-motion";
+import ProjectModal from "../components/ProjectModal";
 
 export default function App({ Component, pageProps }: AppProps) {
-  return <div className={''}>
-
+  return <div>
     <Header/>
-    <Component {...pageProps} />
+    <AnimatePresence>
+      <Component {...pageProps} />
+    </AnimatePresence>
     <Footer/>
+    <UnderFooter/>
   </div>
 }

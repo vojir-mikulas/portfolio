@@ -9,6 +9,12 @@ body {
     font-family: 'Rubik', sans-serif;
 }
 
+main{
+    position: relative;
+    z-index: 10;
+    background-color: white;
+
+}
 h1{
     font-family: 'Roboto', sans-serif;
 }

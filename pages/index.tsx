@@ -1,21 +1,27 @@
 import Head from 'next/head'
 import ProjectList from "../components/ProjectList";
 import CardsContainer from "../components/CardsContainer";
-import {useRouter} from "next/router";
-import RevText from "../components/RevText";
+import { motion } from 'framer-motion';
 
 export default function Home() {
-
   return (
-    <div>
+    <motion.main
+    initial={{
+      opacity: 0
+    }}
+    animate={{
+      opacity: 1
+    }}
+    exit={{
+      opacity: 0
+    }}
+    >
       <Head>
         <title>Vojíř</title>
       </Head>
-
         <CardsContainer/>
-
        <ProjectList/>
 
-    </div>
+    </motion.main>
   )
 }

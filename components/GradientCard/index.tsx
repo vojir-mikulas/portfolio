@@ -1,35 +1,43 @@
 import React, {useState} from 'react';
 import {motion} from 'framer-motion'
+import {useRouter} from "next/router";
 
-const TwitchCard: React.FC<any> = ({title, subtitle}) => {
+interface props {
+    title: string;
+    subtitle: string;
+    href: string;
+}
+
+const TwitchCard: React.FC<props> = ({title, subtitle, href}) => {
     const [subtitleWords, setSubTitleWords] = useState<any>(subtitle.split(' '))
+    const router = useRouter();
     const gradientMotion = {
         hover: {
             backgroundPosition: '100% 100%',
             scaleX: 1.08,
             scaleY: 1.03,
             transition: {
-                default: { ease: "linear", duration: 0.1 }
+                default: {ease: "linear", duration: 0.1}
             }
         },
         rest: {
             backgroundPosition: '0 0',
-            scale:  1,
+            scale: 1,
             transition: {
-                default: { ease: "linear", duration: 0.1, }
+                default: {ease: "linear", duration: 0.1,}
             }
         }
     }
     const contentBgMotion = {
-        hover:{
+        hover: {
             backgroundPositionX: '-10%',
-            color:'white',
+            color: 'white',
             transition: {
                 duration: 0.1
             }
         },
-        rest:{
-            color:'black',
+        rest: {
+            color: 'black',
             backgroundPositionX: 0,
             transition: {
                 duration: 0.1
@@ -38,8 +46,8 @@ const TwitchCard: React.FC<any> = ({title, subtitle}) => {
     }
     return (
         <motion.button className={'card interactable'}
-
-                       initial='rest' animate='rest' whileHover='hover' whileFocus={'hover'}   exit='rest'>
+                       onClick={() => router.replace(`${href}`)}
+                       initial='rest' animate='rest' whileHover='hover' whileFocus={'hover'} exit='rest'>
             <motion.div
                 variants={contentBgMotion}
                 className={'card-content'}>
@@ -66,9 +74,7 @@ const TwitchCard: React.FC<any> = ({title, subtitle}) => {
                 })}
                 </h4>
             </motion.div>
-            <motion.div className={'card-gradient'} variants={gradientMotion}>
-
-            </motion.div>
+            <motion.div className={'card-gradient'} variants={gradientMotion}></motion.div>
         </motion.button>
     );
 };

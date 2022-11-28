@@ -2,20 +2,26 @@ import {motion} from "framer-motion";
 
 import React, {useEffect, useRef, useState} from "react";
 import PopInText from "../PopInText";
+import {useRouter} from "next/router";
 
-const Card = () => {
-
+interface props {
+    title: string;
+    subtitle: string;
+    href: string;
+}
+const Card : React.FC<props> = ({title, subtitle, href}) => {
+    const router = useRouter();
     return (
         <motion.button
             initial={'initial'}
             whileHover={'hover'}
             whileFocus={'hover'}
-
+            onClick={() => router.replace(`${href}`)}
             className={'interactable bg-violet-500  focus:outline-none focus:ring focus:ring-blue-500 relative  w-[50vw] h-[24rem] hover:scale-105 overflow-hidden transition-all rounded-xl  text-6xl font-bold text-white flex text-left'}
         >
             <div className={'p-16'}>
-                <h3> About me</h3>
-                <h4><PopInText text={'Education, technology stack etc...'}/></h4>
+                <h3> {title}</h3>
+                <h4><PopInText text={subtitle}/></h4>
             </div>
             <div>
                 <AnimatedBGText/>
