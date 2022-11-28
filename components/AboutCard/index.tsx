@@ -17,13 +17,13 @@ const Card : React.FC<props> = ({title, subtitle, href}) => {
             whileHover={'hover'}
             whileFocus={'hover'}
             onClick={() => router.replace(`${href}`)}
-            className={'interactable bg-violet-500  focus:outline-none focus:ring focus:ring-blue-500 relative  w-[50vw] h-[24rem] hover:scale-105 overflow-hidden transition-all rounded-xl  text-6xl font-bold text-white flex text-left'}
+            className={'interactable bg-violet-500  focus:outline-none focus:ring focus:ring-blue-500 relative  w-[50vw] h-[26rem] hover:scale-105 overflow-hidden transition-all rounded-xl  text-6xl font-bold text-white flex text-left mobile:w-[90vw] mobile:h-52'}
         >
-            <div className={'p-16'}>
-                <h3> {title}</h3>
-                <h4><PopInText text={subtitle}/></h4>
+            <div className={'p-16 mobile:p-6'}>
+                <h3 className={'mobile:text-4xl'}> {title}</h3>
+                <h4 className={'mobile:text-sm text-2xl my-6 '}><PopInText text={subtitle}/></h4>
             </div>
-            <div>
+            <div className={'text-xl'}>
                 <AnimatedBGText/>
             </div>
         </motion.button>
@@ -55,8 +55,8 @@ const AnimatedBGText = () => {
         const textNodes: Array<any> = [];
         for (let i = 0; i < 6; i++) {
             textNodes.push(
-                <motion.div key={i}>
-                    <motion.span className={'inline-block origin-bottom'}
+                <motion.div key={i} className={''}>
+                    <motion.span className={'inline-block origin-bottom '}
                                  custom={0}
                                  variants={textVariants} ref={wordNode}>V</motion.span>
                     <motion.span>OJ</motion.span>
@@ -73,7 +73,7 @@ const AnimatedBGText = () => {
     }
     return (
         <motion.div
-            className={'opacity-20 absolute right-24 -top-10 text-8xl flex flex-col'}>
+            className={'opacity-20 absolute right-24 -top-10 text-8xl flex flex-col mobile:text-5xl mobile:-top-4 mobile:right-10'}>
             {renderBGText()}
         </motion.div>
     );

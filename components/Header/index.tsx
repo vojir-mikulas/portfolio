@@ -119,7 +119,7 @@ const Hero : React.FC<HeroProps> = ({animate,navVisible,setNavVisible,setStagger
                             setStaggerAnimation(true)
                         }}
 
-                        className={'text-9xl font-bold relative w-max h-max  z-50 select-none'}>
+                        className={'text-9xl font-bold fixed w-max h-max  z-50 select-none'}>
                         {!navVisible && <AnimatePresence>
                             <motion.h1
                                 key='logo'

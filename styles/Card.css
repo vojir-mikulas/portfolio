@@ -4,7 +4,7 @@
     border: 0.5vmin solid rgb(3, 169, 244);
     position: relative;
     cursor: pointer;
-    width: 56vmin;
+
     border-radius: 12px;
     font-weight: bold;
 }
@@ -54,3 +54,16 @@
     position: relative;
 }
 
+@media only screen and (max-width: 600px) {
+    .card {
+        width: 90%;
+        aspect-ratio: 10/14;
+    }
+    .card-title{
+        font-size: 2.25rem;
+        line-height: 2.5rem;
+    }
+    .card-subtitle{
+        font-size: 1.3rem;
+    }
+}

@@ -35,7 +35,7 @@ const Text: React.FC<props> = ({children}) => {
                         whileInView={'reveal'}
                         exit={'initial'}
                         custom={index}
-                        className={'text-8xl font-bold inline-block  text-stroke my-10'}
+                        className={'text-8xl font-bold inline-block  text-stroke my-10 tablet:text-5xl'}
                         variants={charVariants}
                         key={char}>{char} </motion.div>
                 ))}

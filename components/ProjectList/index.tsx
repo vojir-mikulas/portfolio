@@ -68,6 +68,7 @@ const ProjectsLibrary = () => {
                         info={{year: '2022', type: 'E-shop', description: 'Projekt k životopisu'}}/>
 
 
+
                 </div>
             </MouseContext.Provider>
         </div>
@@ -86,10 +87,11 @@ interface ProjectItem {
 
 const ProjectItem: React.FC<ProjectItem> = ({id,title, info}) => {
     const [isMouseHovering, setIsMouseHovering] = useState<boolean>(false)
+    const [isHoveringImage, setIsHoveringImage] = useState<boolean>(false)
     const imgNode: React.MutableRefObject<HTMLImageElement | null> = useRef(null);
 
     const {xProgress, mouseX, tilt, containerWidth} = useContext(MouseContext);
-    const [mouseY, setMouseY] = useState<number>(0);
+    const [mouseY, setMouseY] = useState<number>(5);
     const [imgPos, setImgPos] = useState<{ x: number, y: number }>({x: 0, y: 0})
 
     const router = useRouter();
@@ -97,13 +99,13 @@ const ProjectItem: React.FC<ProjectItem> = ({id,title, info}) => {
         initial: {
             x: imgPos.x,
             y: '-50%',
-            scaleX: 0.6,
-            scaleY: 0.6,
+
         },
         hover: {
             x: imgPos.x,
             y: imgPos.y,
             rotate: tilt,
+            scale: 1,
             transition: {
                 type: "spring",
                 mass: 0.1,
@@ -181,7 +183,7 @@ const ProjectItem: React.FC<ProjectItem> = ({id,title, info}) => {
         const imgHeight: number = img ? img.offsetHeight : 0;
         let x: number = clampPosition(containerWidth * 0.45, containerWidth * 0.9, xProgress) - (imgWidth / 2);
         let y: number = mouseY - (imgHeight / 2);
-        if(mouseY >= (imgHeight / 4) || mouseY <= -40) setIsMouseHovering(false)
+        // TODO: fixnout hejbani img
         setImgPos({
             x,
             y
@@ -194,10 +196,13 @@ const ProjectItem: React.FC<ProjectItem> = ({id,title, info}) => {
                 onMouseEnter={(e) => {
                     e.stopPropagation();
                     setIsMouseHovering(true);
+
                 }}
                 onMouseLeave={(e) => {
                     e.stopPropagation();
+                    console.log('a jet ofuč')
                     setIsMouseHovering(false);
+
                 }}
                 onMouseMove={handleMouseMove}
                 onClick={handleOnClick}
@@ -205,7 +210,7 @@ const ProjectItem: React.FC<ProjectItem> = ({id,title, info}) => {
                 <div className={'w-full flex items-center z-50'}>
                     <button onFocus={() => setIsMouseHovering(true)}
                             onBlur={() => setIsMouseHovering(false)}>
-                        <h1 className={`text-7xl font-medium ${isMouseHovering ? 'text-black mobile:text-white' : 'text-gray-500'} transition-all mobile:text-5xl mobile:mix-blend-difference`}>{title}</h1></button>
+                        <h2 className={`text-7xl mobile:text-3xl font-medium ${isMouseHovering ? 'text-black mobile:text-white' : 'text-gray-500'} transition-all mobile:mix-blend-difference`}>{title}</h2></button>
                     <motion.div
                         initial={'initial'}
                         animate={isMouseHovering ? 'hover' : 'initial'}
@@ -223,7 +228,9 @@ const ProjectItem: React.FC<ProjectItem> = ({id,title, info}) => {
                             animate={isMouseHovering ? 'hover' : 'initial'}
                             exit={'exit'}
                             variants={imageContainerVariants}
-                            className={'aspect-[11/16] w-96 h-max absolute top-0 left-0 mobile:w-72'}>
+                            onMouseEnter={() => setIsHoveringImage(true)}
+                            onMouseLeave={() => setIsHoveringImage(false)}
+                            className={'  w-60 h-max absolute top-0 left-0 mobile:w-72'}>
                             <motion.img
                                 variants={imageVariants}
                                 ref={imgNode} src={preview.src} alt={'project'}

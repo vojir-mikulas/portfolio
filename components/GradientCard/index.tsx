@@ -45,12 +45,12 @@ const TwitchCard: React.FC<props> = ({title, subtitle, href}) => {
         }
     }
     return (
-        <motion.button className={'card interactable'}
+        <motion.button className={'card interactable '}
                        onClick={() => router.replace(`${href}`)}
                        initial='rest' animate='rest' whileHover='hover' whileFocus={'hover'} exit='rest'>
             <motion.div
                 variants={contentBgMotion}
-                className={'card-content'}>
+                className={'card-content '}>
                 <h3 className="card-title">{title}</h3>
                 <h4 className="card-subtitle"> {subtitleWords.map((word: string, index: number) => {
                     return (

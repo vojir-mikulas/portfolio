@@ -34,7 +34,7 @@ const Word: React.FC<{ text: string, custom: any }> = ({text, custom}) => {
         <motion.span
             custom={custom}
             variants={wordVariants}
-            className={'inline-block mr-2 text-2xl'}
+            className={'inline-block mr-2 '}
         >
             {text}
         </motion.span>

@@ -39,9 +39,9 @@ const ProjectStart : React.FC<props> = ({isOpen,setIsOpen}) => {
                 initial={{scale:0,opacity:0}}
                 animate={{scale:1,opacity:1}}
                 exit={{scale:0,opacity:0}}
-                transition={{duration:0.2}}
-                className={'sm:container w-full min-h-[80vh] bg-white rounded-md  relative origin-bottom'}>
-                <div className={'w-1/2 h-full flex flex-col items-center mt-24  mx-auto  text-xl'}>
+                transition={{duration:0.4,type:'spring'}}
+                className={'sm:container w-full min-h-[80vh] py-16 bg-white rounded-md  relative origin-bottom'}>
+                <div className={'w-1/2 mobile:w-[90%] h-full flex flex-col items-center mt-5  mx-auto  text-xl'}>
                     <formContext.Provider value={{
                         pages, currentPageIndex, page, isFirstPage, isLastPage, back, next,setProjectType,setProjectDescription
                     }}>
@@ -68,7 +68,7 @@ const ProjectType : React.FC<any> = ()=>{
         exit={{opacity:0,y:-50}}
     className={'flex flex-col justify-center items-center'}
     >
-        <h1 className={'text-4xl font-bold text-center w-max'}>What do you need?</h1>
+        <h1 className={'text-4xl font-bold text-center w-max mobile:text-2xl'}>What do you need?</h1>
         <div className={'flex flex-wrap items-center justify-center gap-5 my-10 w-full '}>
             <Button onClick={()=> handleOnClick('website')}> Website</Button>
             <Button onClick={()=> handleOnClick('webdesign')}> Webdesign</Button>
@@ -85,7 +85,7 @@ const ProjectDescription = () => {
             animate={{opacity:1,y:0}}
             exit={{opacity:0,y:-50}}
             className={'flex flex-col justify-center items-center'}>
-            <h1 className={'text-4xl font-bold text-center w-max'}>What kind of problem are you facing? <br/>
+            <h1 className={'text-3xl font-bold text-center  w-max mobile:text-2xl'}>What kind of problem are you facing? <br/>
             What are your goals you want to achieve?</h1>
             <div className={'flex flex-col flex-wrap items-center justify-center gap-5 my-10 w-full '}>
                 <textarea className={'w-full max-h-40 h-40 overflow-scroll bg-gray-200 rounded-md p-2 '}></textarea>
@@ -106,7 +106,7 @@ const ProjectBudget = () =>{
         animate={{opacity:1,y:0}}
         exit={{opacity:0,y:-50}}
         className={'flex flex-col justify-center items-center'}>
-        <h1 className={'text-4xl font-bold text-center w-max'}>What is your budget to achieve these objectives?</h1>
+        <h1 className={'text-4xl font-bold text-center   mobile:text-3xl'}>What is your budget to achieve these objectives?</h1>
         <div className={'flex flex-wrap items-center justify-center gap-5 my-10 w-full '}>
             <Button onClick={()=> handleOnClick('60€-500€')}> 60 € - 500 €</Button>
             <Button onClick={()=> handleOnClick('500€-100€')}> 500 € - 1000 €</Button>
@@ -141,15 +141,15 @@ const MessageForm = () =>{
         initial={{opacity:0,y:-50}}
         animate={{opacity:1,y:0}}
         exit={{opacity:0,y:-50}}
-        className={'flex flex-col justify-center items-center'}>
-        <h1 className={'text-4xl font-bold text-center '}>Finally, please fill in your details so that I can get back to you as soon as possible.</h1>
-        <div className={'grid-cols-2 grid gap-3 my-6  place'}>
+        className={'flex flex-col justify-center items-center h-full  '}>
+        <h1 className={'text-4xl font-bold text-center mobile:text-2xl'}>Finally, please fill in your details so that I can get back to you as soon as possible.</h1>
+        <div className={' grid-cols-2 grid gap-3 my-6  mobile:grid-cols-1   h-full'}>
             <input type="text" placeholder={'Name'} className={'bg-gray-200 py-2 px-4 rounded-md'}/>
             <input type="text" placeholder={'Company'} className={'bg-gray-200 py-2 px-4 rounded-md'}/>
             <input type="text" placeholder={'Email'} className={'bg-gray-200 py-2 px-4 rounded-md'}/>
             <input type="text" placeholder={'Phone number'} className={'bg-gray-200 py-2 px-4 rounded-md'}/>
-            <textarea  className={'bg-gray-200 col-span-2 w-full max-h-40 h-40 overflow-scroll p-2 rounded-md'} placeholder={'Message'}></textarea>
-            <div className={'col-span-2 flex items-center justify-center'}><Button onClick={()=> alert('send')} className={'mt-5'}> Send</Button></div>
+            <textarea  className={'bg-gray-200 col-span-2 mobile:col-span-1 w-full max-h-40 h-40 overflow-scroll p-2 rounded-md'} placeholder={'Message'}></textarea>
+            <div className={'col-span-2 mobile:col-span-1 flex items-center justify-center'}><Button onClick={()=> alert('send')} className={'mt-5'}> Send</Button></div>
         </div>
     </motion.div>
 }
