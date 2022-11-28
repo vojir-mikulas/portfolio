@@ -1,6 +1,7 @@
 import {AnimatePresence, motion} from 'framer-motion';
 import React, {useContext, useState} from 'react';
 import {useMultipageForm} from "../../hooks/UseMultipageForm";
+import useClickOutside from "../../hooks/UseClickOutside";
 
 const formContext = React.createContext<any>({})
 
@@ -20,7 +21,7 @@ const ProjectStart : React.FC<props> = ({isOpen,setIsOpen}) => {
     const [phone,setPhone] = useState<string>('');
     const [message,setMessage] = useState<string>('');
 
-
+    const modal : any = useClickOutside(()=> (setIsOpen(false)))
     const { pages, currentPageIndex, page, isFirstPage, isLastPage, back, next } =
         useMultipageForm([
             <ProjectType key={'ProjectType'}/>,
@@ -31,28 +32,27 @@ const ProjectStart : React.FC<props> = ({isOpen,setIsOpen}) => {
         ])
 
     return (
-        <motion.div
-
+        <div
             className={'fixed flex items-center bg-[rgba(0,0,0,0.5)] justify-center top-0 bottom-0 left-0 right-0 z-50'}>
             <motion.div
-                initial={{scaleY:0,opacity:0}}
-                animate={{scaleY:1,opacity:1}}
-                exit={{scaleY:0,opacity:0}}
-                className={'sm:container w-full min-h-[80vh] bg-white rounded-md  relative origin-top'}>
+                ref={modal}
+                initial={{scale:0,opacity:0}}
+                animate={{scale:1,opacity:1}}
+                exit={{scale:0,opacity:0}}
+                transition={{duration:0.2}}
+                className={'sm:container w-full min-h-[80vh] bg-white rounded-md  relative origin-bottom'}>
                 <div className={'w-1/2 h-full flex flex-col items-center mt-24  mx-auto  text-xl'}>
                     <formContext.Provider value={{
                         pages, currentPageIndex, page, isFirstPage, isLastPage, back, next,setProjectType,setProjectDescription
                     }}>
                         <span className={'text-2xl italic my-4'}> {`${currentPageIndex + 1}/${pages.length}`}</span>
-                        <AnimatePresence>
                             {page}
-                        </AnimatePresence>
                     </formContext.Provider>
                 </div>
                 <button onClick={()=> setIsOpen(false)} className={'absolute top-0 right-0 text-5xl mr-8 mt-8'}>X</button>
                 {!isFirstPage && <button onClick={()=> back()} className={'absolute left-0 bottom-0 text-2xl ml-8 mb-8'}> Back </button>}
             </motion.div>
-        </motion.div>
+        </div>
     );
 };
 
