@@ -23,11 +23,11 @@ const ProjectStart : React.FC<props> = ({isOpen,setIsOpen}) => {
 
     const { pages, currentPageIndex, page, isFirstPage, isLastPage, back, next } =
         useMultipageForm([
-            <ProjectType />,
-            <ProjectDescription/>,
-            <ProjectBudget />,
-            <ProjectDeadline />,
-            <MessageForm/>
+            <ProjectType key={'ProjectType'}/>,
+            <ProjectDescription key={'ProjectDescription'}/>,
+            <ProjectBudget key={'ProjectBudget'}/>,
+            <ProjectDeadline key={'ProjectDeadline'} />,
+            <MessageForm key={'MessageForm'}/>
         ])
 
     return (

@@ -56,7 +56,7 @@ export const UnderFooter = () => {
          <section className={'fixed bottom-0 w-full h-[35vh] -z-10 '}>
              <div className={'w-full h-full bg-gray-900 text-white flex flex-col items-center justify-center  '}>
                  <h1 className={'font-bold text-7xl mb-8'}>Sold yet?</h1>
-                 <button onClick={()=> setIsModalOpen(true)} className={'w-50 border-2 rounded-md p-3 hover:bg-white hover:text-black hover:scale-110 transition-all'}> Let's start a project together</button>
+                 <button onClick={()=> setIsModalOpen(true)} className={'w-50 border-2 rounded-md p-3 hover:bg-white hover:text-black hover:scale-110 transition-all'}> Let&apos;s start a project together</button>
                  <div className={'w-50 text-center text-gray-500 my-3'}>or</div>
                  <a href="mailto:vojir.mikulas@gmail.com" className={'hover:underline'}>Write me an email</a>
              </div>
