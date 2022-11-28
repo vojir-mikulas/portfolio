@@ -143,8 +143,8 @@ const ProjectItem: React.FC<ProjectItem> = ({id,title, info}) => {
             zIndex: 2,
         },
         hover: {
-            scaleX: 2,
-            scaleY: 2,
+            scaleX:1.5,
+            scaleY: 1.5,
             opacity: 1,
             zIndex: -10,
             clipPath: 'polygon(0% 0%,100% 0%,100% 100%,0% 100%)',
@@ -206,16 +206,16 @@ const ProjectItem: React.FC<ProjectItem> = ({id,title, info}) => {
                 }}
                 onMouseMove={handleMouseMove}
                 onClick={handleOnClick}
-                className={'relative  w-full flex items-center project py-4 interactable'}>
+                className={'relative w-full flex items-center project py-4 interactable'}>
                 <div className={'w-full flex items-center z-50'}>
                     <button onFocus={() => setIsMouseHovering(true)}
                             onBlur={() => setIsMouseHovering(false)}>
-                        <h2 className={`text-7xl mobile:text-3xl font-medium ${isMouseHovering ? 'text-black mobile:text-white' : 'text-gray-500'} transition-all mobile:mix-blend-difference`}>{title}</h2></button>
+                        <h2 className={`text-7xl font-oswald mobile:text-3xl font-medium ${isMouseHovering ? 'text-black mobile:text-white' : 'text-gray-500'} transition-all mobile:mix-blend-difference`}>{title}</h2></button>
                     <motion.div
                         initial={'initial'}
                         animate={isMouseHovering ? 'hover' : 'initial'}
                         exit={'exit'}
-                        className={'flex flex-col text-sm ml-7 z-10'}>
+                        className={'flex flex-col    text-sm ml-7 z-10  '}>
                         <motion.span custom={3} variants={descriptionVariants} className={'ml-9'}>{info.description} </motion.span>
                         <motion.span custom={2} variants={descriptionVariants} className={'ml-6'}>{info.type} </motion.span>
                         <motion.span custom={1} variants={descriptionVariants} className={'ml-3'}>{info.year} </motion.span>

@@ -21,7 +21,7 @@ const TwitchCard: React.FC<props> = ({title, subtitle, href}) => {
             }
         },
         rest: {
-            backgroundPosition: '0 0',
+            backgroundPosition: '0% 0%',
             scale: 1,
             transition: {
                 default: {ease: "linear", duration: 0.1,}
