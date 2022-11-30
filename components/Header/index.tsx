@@ -108,6 +108,7 @@ const Hero : React.FC<HeroProps> = ({animate,navVisible,setNavVisible,setStagger
         <>
             {router.asPath === '/' && <section className={'w-screen h-screen bg-white flex flex-col '}>
                 <motion.div layout className={'flex flex-col items-center justify-center  relative h-full'}>
+                <SubtitleHeading> Not your average front-end developer</SubtitleHeading>
                     <motion.div
                         initial={'initial'}
                         animate={animate ? 'close' : 'idle'}
@@ -121,6 +122,7 @@ const Hero : React.FC<HeroProps> = ({animate,navVisible,setNavVisible,setStagger
 
                         className={'text-9xl font-bold fixed w-max h-max  z-50 select-none'}>
                         {!navVisible && <AnimatePresence>
+                             
                             <motion.h1
                                 key='logo'
                                 layout
@@ -228,7 +230,7 @@ const Header = ({setStaggerAnimation}: any) => {
                 exit={'exit'}
                 className={'fixed w-full flex items-center z-50 hover:bg-white mobile:hover:bg-transparent transition-all h-14 top-0 mobile:flex-col '}>
                 <div
-                    className='flex justify-between items-center md:container mx-auto w-full mobile:bg-white px-4 w-full mobile:py-3'>
+                    className='flex justify-between items-center md:container mx-auto   mobile:bg-white px-4 w-full mobile:py-3'>
                     <motion.div
                         onLayoutAnimationComplete={() => {
                             setStaggerAnimation(false)
@@ -321,7 +323,7 @@ const Chat = () => {
     return (
         <motion.div
             exit={{opacity: 0}}
-            className='fixed right-10 top-20  gap-4 flex flex-col font-bold text-center text-sm w-[20vw] font-medium '>
+            className='fixed right-10 top-20  gap-4 flex flex-col text-center text-sm w-[20vw] font-medium '>
             <motion.div
                 initial={{opacity: 0, scale: 0}}
                 animate={{opacity: 1, scale: 1}}
@@ -404,5 +406,43 @@ const ScrollIcon = () => {
     );
 };
 
-
+const SubtitleHeading : React.FC<{children:string}> = ({children})=>{
+    const [animate, setAnimate] = useState<boolean>(true)
+    const {scrollY} = useScroll();
+    useEffect(() => {
+        return scrollY.onChange((latest) => {
+            if (latest >= 50) {
+                setAnimate(false)
+            } else {
+                setAnimate(true)
+            }
+        })
+    }, [])
+    const subtitleVariants = {
+        initial:{
+            y:-40,
+            opacity:0
+        },
+        animate: {
+            y:0,
+            opacity: 1,
+            transition: {
+                    type: 'spring',
+                    duration: 1.5,
+            }
+        }
+    }
+    return (
+        <AnimatePresence>
+        {animate &&
+           <motion.span  initial={'initial'}
+           animate={'animate'}
+           exit={'initial'}
+           variants={subtitleVariants}
+            className='text-orange-300 inline-block mb-52 text-sm font-normal w-max tracking-widest fixed'>{children}</motion.span>}
+         
+    </AnimatePresence>
+        
+    )
+}
 export default HeaderHero;

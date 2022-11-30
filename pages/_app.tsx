@@ -10,6 +10,8 @@ import ProjectModal from "../components/ProjectModal";
 
 export default function App({ Component, pageProps }: AppProps) {
   return <div>
+
+    <Cursor></Cursor>
     <Header/>
     <AnimatePresence>
       <Component {...pageProps} />

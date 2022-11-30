@@ -88,7 +88,7 @@ const ProjectDescription = () => {
             <h1 className={'text-3xl font-bold text-center  w-max mobile:text-2xl'}>What kind of problem are you facing? <br/>
             What are your goals you want to achieve?</h1>
             <div className={'flex flex-col flex-wrap items-center justify-center gap-5 my-10 w-full '}>
-                <textarea className={'w-full max-h-40 h-40 overflow-scroll bg-gray-200 rounded-md p-2 '}></textarea>
+                <textarea className={'w-full max-h-40 h-40 overflow-y-scroll min-h-[10rem]  bg-gray-200 rounded-md p-2 '}></textarea>
                 <Button onClick={()=> next()}> Next </Button>
             </div>
         </motion.div>
@@ -148,7 +148,7 @@ const MessageForm = () =>{
             <input type="text" placeholder={'Company'} className={'bg-gray-200 py-2 px-4 rounded-md'}/>
             <input type="text" placeholder={'Email'} className={'bg-gray-200 py-2 px-4 rounded-md'}/>
             <input type="text" placeholder={'Phone number'} className={'bg-gray-200 py-2 px-4 rounded-md'}/>
-            <textarea  className={'bg-gray-200 col-span-2 mobile:col-span-1 w-full max-h-40 h-40 overflow-scroll p-2 rounded-md'} placeholder={'Message'}></textarea>
+            <textarea  className={'bg-gray-200 col-span-2 mobile:col-span-1 w-full max-h-40 h-40 overflow-y-scroll min-h-[10rem] p-2 rounded-md'} placeholder={'Message'}></textarea>
             <div className={'col-span-2 mobile:col-span-1 flex items-center justify-center'}><Button onClick={()=> alert('send')} className={'mt-5'}> Send</Button></div>
         </div>
     </motion.div>
@@ -165,7 +165,7 @@ const Button : React.FC<any> = ({children,onClick, className = ''}) => {
                     y:-5
                 }}
                 onClick={(e)=> onClick(e)}
-                className={'bg-gray-900 text-xl text-white rounded-md py-4 px-5 w-72 ' + className}>  {children}  </motion.button>
+                className={'bg-gray-900 text-xl text-white rounded-md py-4 px-5 w-72 interactable ' + className}>  {children}  </motion.button>
 
     );
 };

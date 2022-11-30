@@ -8,6 +8,7 @@ body {
     background-color: white;
     color: black;
     font-family: 'Rubik', sans-serif;
+    overflow-x: hidden;
 }
 
 main{
@@ -42,3 +43,4 @@ h2, h3 {
     -webkit-text-stroke-color: black;
     -webkit-text-stroke-width: 1px;
 }
+

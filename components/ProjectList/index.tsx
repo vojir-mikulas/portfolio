@@ -60,7 +60,7 @@ const ProjectsLibrary = () => {
             }}>
                 <div
                     ref={projectContainerNode}
-                    className='flex flex-col justify-center md:container mx-auto '>
+                    className='flex flex-col justify-center md:container tablet:container mx-auto '>
                     <RevText>MY WORK</RevText>
                     <ProjectItem
                         id={'yellowflash'}
@@ -210,7 +210,7 @@ const ProjectItem: React.FC<ProjectItem> = ({id,title, info}) => {
                 <div className={'w-full flex items-center z-50'}>
                     <button onFocus={() => setIsMouseHovering(true)}
                             onBlur={() => setIsMouseHovering(false)}>
-                        <h2 className={`text-7xl font-oswald mobile:text-3xl font-medium ${isMouseHovering ? 'text-black mobile:text-white' : 'text-gray-500'} transition-all mobile:mix-blend-difference`}>{title}</h2></button>
+                        <h2 className={`text-7xl font-oswald tablet:text-5xl font-medium ${isMouseHovering ? 'text-black' : 'text-gray-500'} transition-all mobile:mix-blend-difference`}>{title}</h2></button>
                     <motion.div
                         initial={'initial'}
                         animate={isMouseHovering ? 'hover' : 'initial'}

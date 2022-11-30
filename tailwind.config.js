@@ -7,6 +7,11 @@ module.exports = {
     "./pages/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    extend:{
+      gridTemplateColumns:{
+        'cards': 'auto 35%'
+      }
+    },
     screens: {
       'mobile'  : {'max': '700px'},
       'tablet'  : {'max': '1280px'},

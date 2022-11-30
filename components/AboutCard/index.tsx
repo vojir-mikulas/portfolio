@@ -17,13 +17,13 @@ const Card : React.FC<props> = ({title, subtitle, href}) => {
             whileHover={'hover'}
             whileFocus={'hover'}
             onClick={() => router.replace(`${href}`)}
-            className={'interactable bg-violet-500  focus:outline-none focus:ring focus:ring-blue-500 relative  w-[50vw] h-[26rem] hover:scale-105 overflow-hidden transition-all rounded-xl  text-6xl font-bold text-white flex text-left mobile:w-[90vw] mobile:h-52'}
+            className={'interactable bg-blue-500 focus:outline-none focus:ring focus:ring-blue-500 relative  w-full h-full  hover:scale-105 overflow-hidden transition-all rounded-xl  text-6xl font-bold text-white flex text-left mobile:w-[90vw] mobile:h-60'}
         >
-            <div className={'p-16 mobile:p-6'}>
-                <h3 className={'mobile:text-4xl'}> {title}</h3>
-                <h4 className={'mobile:text-sm text-2xl my-6 '}><PopInText text={subtitle}/></h4>
+            <div className={'p-16 tablet:p-6'}>
+                <h3 className={'tablet:text-4xl'}> {title}</h3>
+                <h4 className={'tablet:text-lg mobile:text-sm text-2xl my-6 '}><PopInText text={subtitle}/></h4>
             </div>
-            <div className={'text-xl'}>
+            <div className={'text-2xl'}>
                 <AnimatedBGText/>
             </div>
         </motion.button>
@@ -34,6 +34,7 @@ const Card : React.FC<props> = ({title, subtitle, href}) => {
 const AnimatedBGText = () => {
     const wordNode: any = useRef(null)
     const [wordHeight, setWordHeight] = useState<number>(114)
+    const containerNode : any = useRef();
     const textVariants = {
         initial: {
             y: 0
@@ -52,8 +53,9 @@ const AnimatedBGText = () => {
         if (wordNode.current) setWordHeight(wordNode.current.offsetHeight)
     }, [wordNode.current])
     const renderBGText = () => {
+
         const textNodes: Array<any> = [];
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < 8; i++) {
             textNodes.push(
                 <motion.div key={i} className={''}>
                     <motion.span className={'inline-block origin-bottom '}
@@ -73,7 +75,8 @@ const AnimatedBGText = () => {
     }
     return (
         <motion.div
-            className={'opacity-20 absolute right-24 -top-10 text-8xl flex flex-col mobile:text-5xl mobile:-top-4 mobile:right-10'}>
+            ref={containerNode}
+            className={'opacity-20 absolute h-full right-24 -top-14 text-8xl flex flex-col mobile:text-7xl mobile:-top-4 mobile:right-10'}>
             {renderBGText()}
         </motion.div>
     );
