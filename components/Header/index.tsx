@@ -106,9 +106,29 @@ const Hero : React.FC<HeroProps> = ({animate,navVisible,setNavVisible,setStagger
     }
     return (
         <>
-            {router.asPath === '/' && <section className={'w-screen h-screen bg-white flex flex-col '}>
+            {router.asPath === '/' && <section className={'w-screen h-screen snap-start bg-white flex flex-col '}>
                 <motion.div layout className={'flex flex-col items-center justify-center  relative h-full'}>
-                <SubtitleHeading> Not your average front-end developer</SubtitleHeading>
+                    <motion.h1
+                    initial={{opacity:0}}
+                    whileInView={{opacity:0.05}}
+                    exit={{opacity:0, y: -20}}
+                    transition={{
+                        type:'spring',
+                        duration:0.4,
+                        delay:0.2
+                    }}
+                    className={'opacity-10 font-bold text-[15vw] absolute top-0 left-0 '}>FRONT-END </motion.h1>
+                  <motion.h1
+                    initial={{opacity:0}}
+                    whileInView={{opacity:0.05}}
+                    exit={{opacity:0, y: -20}}
+                    transition={{
+                        type:'spring',
+                        duration:0.4,
+                        delay:0.2
+                    }}
+                    className={'opacity-10 font-bold text-[12vw] absolute bottom-0 right-0 '}> BACK-END </motion.h1>
+                  
                     <motion.div
                         initial={'initial'}
                         animate={animate ? 'close' : 'idle'}

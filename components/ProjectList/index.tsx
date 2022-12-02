@@ -51,7 +51,7 @@ const ProjectsLibrary = () => {
         }
     }, [])
     return (
-        <div className='w-screen h-screen flex flex-col justify-center'>
+        <div className='w-screen min-h-screen flex flex-col  '>
             <MouseContext.Provider value={{
                 xProgress,
                 mouseX,
@@ -60,8 +60,9 @@ const ProjectsLibrary = () => {
             }}>
                 <div
                     ref={projectContainerNode}
-                    className='flex flex-col justify-center md:container tablet:container mx-auto '>
+                    className='flex flex-col   md:container tablet:container mx-auto '>
                     <RevText>MY WORK</RevText>
+                  
                     <ProjectItem
                         id={'yellowflash'}
                         title={'YELLOWFLASH'}
@@ -230,11 +231,11 @@ const ProjectItem: React.FC<ProjectItem> = ({id,title, info}) => {
                             variants={imageContainerVariants}
                             onMouseEnter={() => setIsHoveringImage(true)}
                             onMouseLeave={() => setIsHoveringImage(false)}
-                            className={'  w-60 h-max absolute top-0 left-0 mobile:w-72'}>
+                            className={'aspect-[9/13]  w-60 h-max absolute top-0 left-0 mobile:w-72'}>
                             <motion.img
                                 variants={imageVariants}
-                                ref={imgNode} src={preview.src} alt={'project'}
-                                className={'w-full h-full relative origin-center object-cover bg-gray-50  overflow-hidden'}/>
+                                ref={imgNode}  alt={'project'}
+                                className={'w-full h-full relative origin-center object-cover bg-red-500  overflow-hidden'}/>
 
                         </motion.div>}
                 </AnimatePresence>

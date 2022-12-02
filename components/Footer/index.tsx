@@ -4,7 +4,7 @@ import {AnimatePresence} from "framer-motion";
 
  const Footer = () => {
     return (
-        <footer className={' w-full min-h-[35vh] mb-[500px]  z-10 bg-white '}>
+        <footer className={' w-full min-h-[35vh] mb-[500px]  z-10 bg-white snap-start'}>
             <div className={'md:container mx-auto  py-16 h-full w-full border-t border-black flex flex-col justify-between'}>
                 <div className={'grid-cols-4 items-start w-full grid gap-5   mobile:place-items-center mobile:text-center mobile:grid-cols-1 '}>
                     <div className={'flex flex-col'}>
@@ -52,7 +52,7 @@ export const UnderFooter = () => {
     const [isModalOpen,setIsModalOpen] = useState<boolean>(false)
     return (
      <>
-         <section className={'fixed bottom-0 w-full h-[500px] -z-10 '}>
+         <section className={'fixed bottom-0 w-full h-[500px] -z-10  '}>
              <div className={'w-full h-full bg-gray-900 text-white flex flex-col items-center justify-center  '}>
                  <h1 className={'font-bold text-7xl mb-8'}>Sold yet?</h1>
                  <button onClick={()=> setIsModalOpen(true)} className={'w-50 border-2 interactable rounded-md p-3 hover:bg-white hover:text-black hover:scale-110 focus:bg-white focus:text-black focus:scale-110 transition-all'}> Let&apos;s start a project together</button>

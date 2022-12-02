@@ -9,7 +9,7 @@ module.exports = {
   theme: {
     extend:{
       gridTemplateColumns:{
-        'cards': 'auto 35%'
+        'cards': '35% auto '
       }
     },
     screens: {

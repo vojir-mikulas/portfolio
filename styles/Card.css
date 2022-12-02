@@ -4,7 +4,7 @@
     position: relative;
     cursor: pointer;
     grid-row: 1 / -1;
-    grid-column:  2;
+
     border-radius: 12px;
     font-weight: bold;
 }
