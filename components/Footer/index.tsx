@@ -8,7 +8,7 @@ import {AnimatePresence} from "framer-motion";
             <div className={'md:container mx-auto  py-16 h-full w-full border-t border-black flex flex-col justify-between'}>
                 <div className={'grid-cols-4 items-start w-full grid gap-5   mobile:place-items-center mobile:text-center mobile:grid-cols-1 '}>
                     <div className={'flex flex-col'}>
-                        <h4 className={'font-bold text-xl mb-10'}>Contacts</h4>
+                        <h4 className={'font-bold text-xl mb-10'}>Kontakty</h4>
                         <ul className={'flex flex-col gap-3'}>
                             <li><a href="mailto:vojir.mikulas@gmail.com">vojir.mikulas@gmail.com</a></li>
                             <li><a href="tel:732226202">+420 732 226 202</a></li>
@@ -17,7 +17,7 @@ import {AnimatePresence} from "framer-motion";
                     </div>
 
                     <div className={'flex flex-col'}>
-                        <h4 className={'font-bold text-xl mb-10'}>Socials</h4>
+                        <h4 className={'font-bold text-xl mb-10'}>Sociální sítě</h4>
                         <ul className={'flex flex-col gap-3'}>
                             <li>Github</li>
                             <li>Startupjobs</li>
@@ -35,9 +35,9 @@ import {AnimatePresence} from "framer-motion";
                 </div>
                 <div className={'w-full '}>
                     <ul className={'flex mobile:flex-col mobile:underline items-center justify-center gap-8 font-bold mt-20'}>
-                        <li>Home</li>
-                        <li>About me</li>
-                        <li>Pricing</li>
+                        <li>Domů</li>
+                        <li>O mně</li>
+                        <li>Ceník</li>
                         <li>Terms of policy</li>
                     </ul>
                 </div>
@@ -54,8 +54,8 @@ export const UnderFooter = () => {
      <>
          <section className={'fixed bottom-0 w-full h-[500px] -z-10  '}>
              <div className={'w-full h-full bg-gray-900 text-white flex flex-col items-center justify-center  '}>
-                 <h1 className={'font-bold text-7xl mb-8'}>Sold yet?</h1>
-                 <button onClick={()=> setIsModalOpen(true)} className={'w-50 border-2 interactable rounded-md p-3 hover:bg-white hover:text-black hover:scale-110 focus:bg-white focus:text-black focus:scale-110 transition-all'}> Let&apos;s start a project together</button>
+                 <h1 className={'font-bold text-7xl mb-8'}>Zaujal jsem Vás?</h1>
+                 <button onClick={()=> setIsModalOpen(true)} className={'w-50 border-2 interactable rounded-md p-3 hover:bg-white hover:text-black hover:scale-110 focus:bg-white focus:text-black focus:scale-110 transition-all'}> Pojďmě začít nový projekt</button>
 
              </div>
          </section>

@@ -214,15 +214,15 @@ const Header = ({setStaggerAnimation}: any) => {
 
         const navItems: Array<navItem> = [
             {
-                name: "Home",
+                name: "Domů",
                 href: '/'
             },
             {
-                name: "About me",
+                name: "O mně",
                 href: 'about'
             },
             {
-                name: "Contact",
+                name: "Kontakty",
                 href: 'contact'
             }
         ];

@@ -61,7 +61,7 @@ const ProjectsLibrary = () => {
                 <div
                     ref={projectContainerNode}
                     className='flex flex-col   md:container tablet:container mx-auto '>
-                    <RevText>MY WORK</RevText>
+                    <RevText>MOJE PRÁCE</RevText>
                   
                     <ProjectItem
                         id={'yellowflash'}

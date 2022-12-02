@@ -36,8 +36,8 @@ const MeetSection : React.FC<any> = () =>{
         exit={'exit'} 
         className='md:container mx-auto h-max flex flex-col items-center justify-center mb-20 mobile:text-center '>
           <div className=' '>
-              <p className='text-xl ml-2 mobile:text-lg'><motion.span className="inline-block" variants={greetingsVariants}>Hey <motion.span className="inline-block  " variants={vaweVariants}>👋</motion.span>,</motion.span>
-              <PopInTextAnimate>  my name is Mikuláš Vojíř and I am a</PopInTextAnimate>    
+              <p className='text-xl ml-2 mobile:text-lg'><motion.span className="inline-block" variants={greetingsVariants}>Ahoj <motion.span className="inline-block  " variants={vaweVariants}>👋</motion.span>,</motion.span>
+              <PopInTextAnimate>  jmenuju se Mikuláš Vojíř a jsem</PopInTextAnimate>    
               </p>
               <h1 className='font-oswald text-9xl mobile:text-7xl'>
                   Fullstack
@@ -48,7 +48,7 @@ const MeetSection : React.FC<any> = () =>{
               <p className='text-sm ml-4 mt-4'>Based in Prague, Czech Republic</p>
           </div>
           <button className={'w-50 border-2  interactable rounded-md border-gray-900 mt-10  p-3 hover:bg-gray-900 hover:text-white hover:scale-110 focus:bg-gray-900 focus:text-white  focus:scale-110 transition-all'}> 
-          I need a Website</button>
+          Potřebuju nové stránky</button>
         </motion.div>)
 }
 
