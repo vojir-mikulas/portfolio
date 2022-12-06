@@ -37,7 +37,7 @@ const Text: React.FC<props> = ({children}) => {
                         custom={index}
                         className={'text-9xl font-bold inline-block text-stroke my-10 tablet:text-7xl mr-1'}
                         variants={charVariants}
-                         >{char} </motion.div>
+                        key={`${char + index}`} >{char} </motion.div>
                 ))}
             </AnimatePresence>
         </motion.div>
