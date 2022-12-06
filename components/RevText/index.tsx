@@ -26,7 +26,7 @@ const Text: React.FC<props> = ({children}) => {
     }
     return (
         <motion.div
-
+        className={'z-10 '}
         >
             <AnimatePresence>
                 {characters.map((char: string, index: number) => (
@@ -35,9 +35,9 @@ const Text: React.FC<props> = ({children}) => {
                         whileInView={'reveal'}
                         exit={'initial'}
                         custom={index}
-                        className={'text-9xl font-bold inline-block  text-stroke my-10 tablet:text-7xl mr-1'}
+                        className={'text-9xl font-bold inline-block text-stroke my-10 tablet:text-7xl mr-1'}
                         variants={charVariants}
-                        key={char}>{char} </motion.div>
+                         >{char} </motion.div>
                 ))}
             </AnimatePresence>
         </motion.div>

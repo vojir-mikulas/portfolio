@@ -65,10 +65,12 @@ const ProjectsLibrary = () => {
                   
                     <ProjectItem
                         id={'yellowflash'}
+                        title={'BLOG'}
+                        info={{year: '2022', type: 'Blogovací aplikace', description: 'Testové zadání'}}/>
+                    <ProjectItem
+                        id={'yellowflash'}
                         title={'YELLOWFLASH'}
                         info={{year: '2022', type: 'E-shop', description: 'Projekt k životopisu'}}/>
-
-
 
                 </div>
             </MouseContext.Provider>
