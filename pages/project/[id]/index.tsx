@@ -21,7 +21,7 @@ const ProjectDetail = () => {
                 <h1 className={'text-8xl font-bold font-oswald text-center mb-20'}>{project.name}</h1>
                 <div className={'grid grid-cols-3  text-center  gap-10'}>
                     <ProjectInfoCard className={' h-52 '} title={'TECHSTACK'}>
-                        <div className={'text-xl flex justify-between w-72'}>{project.stack.map((path : any) => <Logo path={path}/>)}</div>
+                        <div className={'text-xl flex justify-between w-72'}>{project.stack.map((path : any) => <Logo key={path} path={path}/>)}</div>
                     </ProjectInfoCard>
                     <YearCard className={' h-52 '} title={'ROK'}>
                         <div className={'text-5xl font-bold'}>{project.year}</div>
@@ -44,7 +44,7 @@ const ProjectDetail = () => {
             <section className={'grid grid-cols-1 gap-10 place-items-center py-20'}>
                 <h2 className={'text-5xl font-light tracking-[0.25em]'}>SCREENSHOTS</h2>
                 {project.screenshots.map((screenshot:string)=>(
-                    <Screenshot path={screenshot}/>
+                    <Screenshot key={screenshot} path={screenshot}/>
                     ))}
             </section>
         </motion.main>
