@@ -13,7 +13,7 @@ const CardsContainer = () => {
                       initial={'initial'}
                       whileHover={'hover'}
                       whileFocus={'hover'}
-                      className={'interactable bg-black  focus:outline-none focus:ring focus:ring-blue-500 relative w-full h-full hover:scale-105 overflow-hidden transition-all rounded-xl  text-6xl font-bold text-white flex text-left mobile:w-[90vw] mobile:h-60'}
+                      className={'interactable bg-black cursor-not-allowed focus:outline-none focus:ring focus:ring-blue-500 relative w-full h-full hover:scale-105 overflow-hidden transition-all rounded-xl  text-6xl font-bold text-white flex text-left mobile:w-[90vw] mobile:h-60'}
                   >
                       <div className={'p-16 tablet:p-6'}>
                           <h3 className={'tablet:text-4xl'}> Jak pracuji</h3>

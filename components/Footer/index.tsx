@@ -4,8 +4,8 @@ import {AnimatePresence} from "framer-motion";
 
  const Footer = () => {
     return (
-        <footer className={' w-full min-h-[35vh] mb-[500px]  z-10 bg-white snap-start'}>
-            <div className={'md:container mx-auto  py-16 h-full w-full border-t border-black flex flex-col justify-between'}>
+        <footer className={' w-full min-h-[35vh] mb-[490px]  z-10 bg-white snap-start dark:bg-neutral-900 dark:text-white'}>
+            <div className={'md:container mx-auto  py-16 h-full w-full border-t border-black dark:border-white flex flex-col justify-between'}>
                 <div className={'grid-cols-4 items-start w-full grid gap-5   mobile:place-items-center mobile:text-center mobile:grid-cols-1 '}>
                     <div className={'flex flex-col'}>
                         <h4 className={'font-bold text-xl mb-10'}>Kontakty</h4>
@@ -52,9 +52,9 @@ export const UnderFooter = () => {
     const [isModalOpen,setIsModalOpen] = useState<boolean>(false)
     return (
      <>
-         <section className={'fixed bottom-0 w-full h-[500px] -z-10  '}>
-             <div className={'w-full h-full bg-gray-900 text-white flex flex-col items-center justify-center  '}>
-                 <h1 className={'font-bold text-7xl mb-8'}>Zaujal jsem Vás?</h1>
+         <section className={'fixed bottom-0 left-0 right-0 h-[500px] -z-10  '}>
+             <div className={'w-full h-full bg-gray-900 dark:bg-black text-white flex flex-col items-center justify-center  '}>
+                 <h1 className={'font-bold text-7xl mb-8 text-center'}>Zaujal jsem Vás?</h1>
                  <button onClick={()=> setIsModalOpen(true)} className={'w-50 border-2 interactable rounded-md p-3 hover:bg-white hover:text-black hover:scale-110 focus:bg-white focus:text-black focus:scale-110 transition-all'}> Pojďme začít nový projekt</button>
              </div>
          </section>

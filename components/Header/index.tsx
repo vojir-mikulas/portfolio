@@ -106,7 +106,7 @@ const Hero : React.FC<HeroProps> = ({animate,navVisible,setNavVisible,setStagger
     }
     return (
         <>
-            {router.asPath === '/' && <section className={'w-screen h-screen snap-start bg-white flex flex-col '}>
+            {router.asPath === '/' && <section className={'w-screen h-screen snap-start dark:bg-neutral-900 dark:text-white bg-white flex flex-col '}>
                 <motion.div layout className={'flex flex-col items-center justify-center  relative h-full'}>
                     <motion.h1
                     initial={{opacity:0}}
@@ -248,7 +248,7 @@ const Header = ({setStaggerAnimation}: any) => {
                 initial={'initial'}
                 animate={'animate'}
                 exit={'exit'}
-                className={'fixed w-full flex items-center z-50 hover:bg-white mobile:hover:bg-transparent transition-all h-14 top-0 mobile:flex-col '}>
+                className={'fixed w-full flex items-center z-50 dark:text-white dark:hover:bg-neutral-900 hover:bg-white mobile:hover:bg-transparent transition-all h-14 top-0 mobile:flex-col '}>
                 <div
                     className='flex justify-between items-center md:container mx-auto   mobile:bg-white px-4 w-full mobile:py-3'>
                     <motion.div

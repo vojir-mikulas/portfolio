@@ -2,7 +2,7 @@
 .card {
     border: 0.5vmin solid rgb(3, 169, 244);
     position: relative;
-    cursor: pointer;
+    cursor: not-allowed;
     grid-row: 1 / -1;
 
     border-radius: 12px;

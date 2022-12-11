@@ -3,6 +3,9 @@ import React, {useContext, useEffect, useMemo, useRef, useState} from 'react';
 import preview from '../../public/yellowflash.png';
 import {useRouter} from "next/router";
 import RevText from "../RevText";
+import {db} from '../../lib/firebase';
+import {useCollection} from "react-firebase-hooks/firestore";
+import {collection} from "firebase/firestore";
 
 const MouseContext = React.createContext<any>(null);
 
@@ -11,6 +14,8 @@ const ProjectsLibrary = () => {
     const [mouseX, setMouseX] = useState<number>(0)
     const [xProgress, setXProgress] = useState<number>(0)
     const [width, setWidth] = useState<number>(0)
+
+    const [projects, loading, error] = useCollection(collection(db, 'projects'));
 
     const projectContainerNode: React.MutableRefObject<HTMLDivElement | null> = useRef(null);
 
@@ -44,14 +49,17 @@ const ProjectsLibrary = () => {
         setMouseX(x);
     }
 
-    useEffect(() => {
-        window.addEventListener('mousemove', handleMouseMove)
+    useEffect( () => {
+        window.addEventListener('mousemove', handleMouseMove);
+
+
         return () => {
             window.removeEventListener('mousemove', handleMouseMove)
         }
     }, [])
+    if (loading) return <div></div>;
     return (
-        <div className='w-screen min-h-screen flex flex-col  '>
+        <div className='w-screen min-h-screen flex flex-col dark:bg-neutral-900 '>
             <MouseContext.Provider value={{
                 xProgress,
                 mouseX,
@@ -60,17 +68,20 @@ const ProjectsLibrary = () => {
             }}>
                 <div
                     ref={projectContainerNode}
-                    className='flex flex-col   md:container tablet:container mx-auto '>
+                    className='flex flex-col w-full  md:container tablet:container mx-auto '>
                     <RevText>MOJE PRÁCE</RevText>
-                  
-                    <ProjectItem
-                        id={'yellowflash'}
-                        title={'BLOG'}
-                        info={{year: '2022', type: 'Blogovací aplikace', description: 'Testové zadání'}}/>
-                    <ProjectItem
-                        id={'yellowflash'}
-                        title={'YELLOWFLASH'}
-                        info={{year: '2022', type: 'E-shop', description: 'Projekt k životopisu'}}/>
+
+                    {projects &&
+                        projects.docs.map((project)=>{
+                         const data = project.data();
+                        return(
+                            <ProjectItem
+                                id={project.id}
+                                title={data.name}
+                                info={{year: data.year, type: 'Blogovací aplikace', description: 'Testové zadání'}}/>
+                        )
+                        })
+                    }
 
                 </div>
             </MouseContext.Provider>
@@ -203,7 +214,7 @@ const ProjectItem: React.FC<ProjectItem> = ({id,title, info}) => {
                 }}
                 onMouseLeave={(e) => {
                     e.stopPropagation();
-                    console.log('a jet ofuč')
+
                     setIsMouseHovering(false);
 
                 }}
@@ -213,15 +224,15 @@ const ProjectItem: React.FC<ProjectItem> = ({id,title, info}) => {
                 <div className={'w-full flex items-center z-50'}>
                     <button onFocus={() => setIsMouseHovering(true)}
                             onBlur={() => setIsMouseHovering(false)}>
-                        <h2 className={`text-7xl font-oswald tablet:text-5xl font-medium ${isMouseHovering ? 'text-black' : 'text-gray-500'} transition-all mobile:mix-blend-difference`}>{title}</h2></button>
+                        <h2 className={`text-7xl font-oswald tablet:text-5xl font-medium ${isMouseHovering ? 'text-black dark:text-white ' : 'text-gray-500'} transition-all mobile:mix-blend-difference`}>{title}</h2></button>
                     <motion.div
                         initial={'initial'}
                         animate={isMouseHovering ? 'hover' : 'initial'}
                         exit={'exit'}
-                        className={'flex flex-col    text-sm ml-7 z-10  '}>
-                        <motion.span custom={3} variants={descriptionVariants} className={'ml-9'}>{info.description} </motion.span>
-                        <motion.span custom={2} variants={descriptionVariants} className={'ml-6'}>{info.type} </motion.span>
-                        <motion.span custom={1} variants={descriptionVariants} className={'ml-3'}>{info.year} </motion.span>
+                        className={'flex flex-col  hidden  text-sm ml-7 z-10  '}>
+                        <motion.span custom={3} variants={descriptionVariants} className={'ml-9 dark:text-white'}>{info.description} </motion.span>
+                        <motion.span custom={2} variants={descriptionVariants} className={'ml-6 dark:text-white'}>{info.type} </motion.span>
+                        <motion.span custom={1} variants={descriptionVariants} className={'ml-3 dark:text-white'}>{info.year} </motion.span>
                     </motion.div>
                 </div>
                 <AnimatePresence>

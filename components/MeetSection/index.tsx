@@ -111,8 +111,9 @@ const Button: React.FC<{ children: string, onClick?: () => void }> = ({children,
             onClick={() => {
                 if (onClick) onClick()
             }}
-            className={'w-50 border-2  interactable rounded-md border-gray-900 mt-10  p-3 hover:bg-gray-900 hover:text-white hover:scale-110 focus:bg-gray-900 focus:text-white  focus:scale-110 transition-all'}>
+            className={'w-50 border-2  interactable rounded-md dark:border-white border-gray-900 mt-10  p-3 dark:hover:bg-white dark:hover:text-black dark:focus:bg-white dark:focus:text-black hover:bg-gray-900 hover:text-white hover:scale-110 focus:bg-gray-900 focus:text-white  focus:scale-110 transition-all'}>
             {children}
+
         </motion.button>
     );
 };

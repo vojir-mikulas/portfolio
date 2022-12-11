@@ -9,7 +9,7 @@ import {AnimatePresence} from "framer-motion";
 import ProjectModal from "../components/ProjectModal";
 
 export default function App({ Component, pageProps }: AppProps) {
-  return <div>
+  return <div className={' dark:bg-neutral-900'}>
 
     <Cursor></Cursor>
     <Header/>

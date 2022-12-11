@@ -45,8 +45,8 @@ const TwitchCard: React.FC<props> = ({title, subtitle, href}) => {
         }
     }
     return (
-        <motion.button className={'card interactable '}
-                       onClick={() => router.replace(`${href}`)}
+        <motion.button className={'card interactable'}
+
                        initial='rest' animate='rest' whileHover='hover' whileFocus={'hover'} exit='rest'>
             <motion.div
                 variants={contentBgMotion}
