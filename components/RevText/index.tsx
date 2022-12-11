@@ -51,7 +51,7 @@ const Text: React.FC<props> = ({children}) => {
                         exit={'initial'}
                         custom={index}
                         className={'text-9xl font-bold inline-block text-stroke my-10 tablet:text-6xl  mr-1'}
-                        variants={charVariantsDarkTheme}
+                        variants={charVariants}
                         key={`${char + index}`} >{char} </motion.div>
                 ))}
             </AnimatePresence>

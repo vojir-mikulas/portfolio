@@ -1,9 +1,10 @@
-import {motion} from "framer-motion"
+import {AnimatePresence, motion} from "framer-motion"
 import React, {useState} from "react";
 import PopInText from "../PopInText";
+import ProjectModal from "../ProjectModal";
 
 const MeetSection: React.FC<any> = () => {
-
+    const [isModalOpen,setIsModalOpen] = useState<boolean>(false)
     const greetingsVariants = {
         initial: {
             opacity: 0,
@@ -82,7 +83,10 @@ const MeetSection: React.FC<any> = () => {
             <motion.p variants={locationVariants} className='text-sm ml-4 mt-4'>Based in Prague, Czech Republic
             </motion.p>
         </div>
-        <Button> Potřebuju nové stránky</Button>
+        <Button onClick={()=> setIsModalOpen(true)}> Potřebuju nové stránky</Button>
+        <AnimatePresence>
+            {isModalOpen ? <ProjectModal isOpen={isModalOpen} setIsOpen={setIsModalOpen}/> : null}
+        </AnimatePresence>
     </motion.div>)
 }
 
