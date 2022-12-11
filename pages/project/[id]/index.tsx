@@ -29,7 +29,7 @@ const ProjectDetail = () => {
                     <ProjectInfoCard className={'row-span-3 h-auto '} title={'ODKAZY'}>
                         <div className={'text-2xl flex flex-col items-center justify-center text-left'}>
                             {project.links.map((link : any)=>(
-                                <a className={'interactable cursor-pointer'} id={link.name}>{link}</a>
+                                <a className={'interactable cursor-pointer'} key={link.name}>{link}</a>
                             ))}
                         </div>
                     </ProjectInfoCard>
