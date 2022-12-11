@@ -76,6 +76,7 @@ const ProjectsLibrary = () => {
                          const data = project.data();
                         return(
                             <ProjectItem
+                                key={project.id}
                                 id={project.id}
                                 title={data.name}
                                 info={{year: data.year, type: 'Blogovací aplikace', description: 'Testové zadání'}}/>
